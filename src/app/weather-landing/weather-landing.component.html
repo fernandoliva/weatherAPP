@@ -1,0 +1,63 @@
+<div class="weather-container">
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <header class="header">
+    <div class="logo-container">
+      <a href="/">
+        <img src="assets/logo2.jpeg" alt="Logo 2" class="logo">
+      </a>
+    </div>
+
+    <div class="search-container">
+      <div class="search-wrapper">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="onSearchInput()"
+          placeholder="Buscar ciudad..."
+          class="search-input">
+        <button class="reset-button" (click)="resetSearch()" *ngIf="searchTerm">
+          ✕
+        </button>
+
+        <div class="dropdown-menu" *ngIf="showDropdown && filteredMunicipalities.length > 0">
+          <div
+            class="dropdown-item"
+            *ngFor="let municipality of filteredMunicipalities"
+            (click)="selectMunicipality(municipality)">
+            {{ municipality.nombre }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="cities">
+    @for (city of filteredCities; track city.name) {
+      <div class="city-card">
+        <div class="city-header">
+          <h2>{{city.name}}</h2>
+          <span class="weather-icon">{{city.icon}}</span>
+        </div>
+        <div class="weather-data">
+          <p class="temperature">{{city.temperature}}°C</p>
+          <p class="condition">{{city.condition}}</p>
+          <div class="details">
+            <p>Sensación térmica: {{city.feelsLike}}°C</p>
+            <p>Humedad: {{city.humidity}}%</p>
+            <p>Viento: {{city.windSpeed}} km/h</p>
+            <p>Probabilidad de lluvia: {{city.precipitationProb}}%</p>
+            <p>Índice UV: {{city.uvIndex}}</p>
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+
+  <footer class="footer">
+    <img src="assets/logo1.gif" alt="Logo AEMET" class="logoAemet">
+    <p class="disclaimer">Esta aplicación ha sido desarrollada con fines educativos para probar la API REST del servicio meteorológico AEMET.</p>
+  </footer>
+</div>

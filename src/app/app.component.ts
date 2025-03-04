@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { WeatherLandingComponent } from './weather-landing/weather-landing.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  template: '<app-weather-landing></app-weather-landing>',
+  standalone: true,
+  imports: [WeatherLandingComponent, HttpClientModule]
 })
-export class AppComponent {
-  title = 'weatherApp';
-}
+export class AppComponent { }
