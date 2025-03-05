@@ -111,7 +111,7 @@ export class WeatherLandingComponent implements OnInit {
     const currentHour = new Date().getHours();
     const targetPeriod = this.getTimeRange(currentHour);
 
-    // Get current temperature instead of maximum
+    // Get current temperature, humidity, and feels-like values
     const currentTemp = this.getCurrentTemperature(today.temperatura);
     const currentHumidity = this.getCurrentHumidity(today.humedadRelativa);
     const currentFeelsLike = this.getCurrentFeelsLike(today.sensTermica);
@@ -121,11 +121,11 @@ export class WeatherLandingComponent implements OnInit {
 
     return {
       name: cityName,
-      temperature: currentTemp,
-      humidity: currentHumidity,
+      temperature: currentTemp || 0,
+      humidity: currentHumidity || 0,
       condition: this.getWeatherCondition(today),
-      windSpeed: today.viento[0].velocidad,
-      feelsLike: currentFeelsLike,
+      windSpeed: today.viento[0]?.velocidad || 0,
+      feelsLike: currentFeelsLike || 0,
       icon: this.getWeatherIcon(today),
       precipitationProb: precipProb,
       uvIndex: today.uvMax || 0
